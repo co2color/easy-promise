@@ -7,7 +7,7 @@ interface OnrejectedType<T = unknown> {
   (e?: T): unknown
 }
 interface ExecutorType<T = unknown> {
-  (resolve: OnfulfilledType<T>, reject?: OnrejectedType): void
+  (resolve: OnfulfilledType<T>, reject?: OnrejectedType<T>): void
 }
 
 type StatusTypes = 'PENDING' | 'FULFILLED' | 'REJECTED'
@@ -38,7 +38,7 @@ class syncPromise<T = unknown> {
       this.resolve_value = val
     }
   }
-  public reject: OnrejectedType = (val) => {
+  public reject: OnrejectedType<T> = (val) => {
     if (this.status === PENDING) {
       this.status = REJECTED
       this.reject_value = val
